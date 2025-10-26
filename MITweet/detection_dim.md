@@ -1,0 +1,15 @@
+| Dimension ID | Dimension Name         | Left                                                         | Right                                                        |
+| ------------ | ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| I1           | Political Regime       | *Socialism*:  the ownership or control of the property should be public-owned. | *Capitalism*: the ownership of the means of production should be private-owned. |
+| I2           | State Structure        | *Centralism*: the power should be concentrated in the central authority. | *Federalism*: the power should be distributed between a central authority and the constituents. |
+| I3           | Economic Orientation   | *Command Economy*: the government should take responsibility for making most of the important economic decisions. | *Market Economy*: economic decisions should be guided by the interactions of individuals, organization, companies. |
+| I4           | Econimic Equality      | *Outcome Equality*: all groups should receive the same treatment or distribution. | *Opportunity Equality*: all groups should have equal access to resources. |
+| I5           | Ethical Pursuit        | *Ethical Liberalism*: the mainstream culture should support sexual liberation, samesex marriage, abortion, and other related issues. | *Ethical Conservatism*: the mainstream culture should restrict individuals’ behavior based on moral norms and religious doctrines. |
+| I6           | Church-State Relations | *Secularism*: the religious power and state power should be separated. | *Caesaropapism*: the religious power and state power should be unified. |
+| I7           | Cultural Value         | *Collectivism*: an individual should be seen as subordinate to a social collective. | *Individualism*: all values should be human-centred and the individual should be of supreme importance. |
+| I8           | Diplomatic Strategy    | *Globalism*: foreign policy should be planned with an international perspective. | *Isolationism*: political and economic entanglements with other countries should be avoided. |
+| I9           | Military Force         | *Militarism*: it is necessary to use strong armed forces to gain political or economic advantages. | *Pacifism*: all types of violence between countries are incorrect. |
+| I10          | Social Development     | *Revolutionism*: it is necessary to take direct and noticeable action to achieve social goals. | *Reformism*: the social changes should take place in a gradual way. |
+| I11          | Justice Orientation    | *Result Justice*: people should be fairly distributed and treated in various social activities. | *Procedural Justice*: the authorities should make fair decisions. |
+| I12          | Personal Right         | *Social Responsibility*: there should be a greater emphasis on fulfilling individual responsibilities. | *Individual Right*: there should be a greater emphasis on protecting individual rights. |
+
