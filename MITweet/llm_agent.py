@@ -2,6 +2,8 @@ from langchain_openai import ChatOpenAI
 from langchain.schema import SystemMessage, HumanMessage
 import os
 import dotenv
+import re
+import json
 dotenv.load_dotenv()
 
 class LLMAgentZeroShot:
@@ -13,23 +15,23 @@ class LLMAgentZeroShot:
     You should return a JSON-formatted output without any additional texts, comments or code-block markers(such as ```json)!
     The JSON format should looks liks:
     {{
-        "reason": "<Your analysis for the ideology detection>",
+        "reason": "<Your analysis for the ideology detection, including which dimensions are related, which are unrelated, and how the text expressed the stance in these related dimensions.>",
         "result":{{
-            "I1": <The result number>,
-            "I2": <The result number>,
-            "I3": <The result number>,
-            "I4": <The result number>,
-            "I5": <The result number>,
-            "I6": <The result number>,
-            "I7": <The result number>,
-            "I8": <The result number>,
-            "I9": <The result number>,
-            "I10": <The result number>,
-            "I11": <The result number>,
-            "I12": <The result number>
+            "I1": <The label number>,
+            "I2": <The label number>,
+            "I3": <The label number>,
+            "I4": <The label number>,
+            "I5": <The label number>,
+            "I6": <The label number>,
+            "I7": <The label number>,
+            "I8": <The label number>,
+            "I9": <The label number>,
+            "I10": <The label number>,
+            "I11": <The label number>,
+            "I12": <The label number>
         }}
     }}
-    **Meaning of Each Result Number:**
+    **Meaning of Each Label Number:**
     - 0: Unrelated 
     - 1: Left
     - 2: Center (Nor Left or Right, while related)
@@ -53,14 +55,35 @@ class LLMAgentZeroShot:
 
 
     def invoke(self, text):
-        response = self.llm.invoke(
-            [
-                SystemMessage(content=self.system_prompt),
-                HumanMessage(content=text)
-            ]
-        )
+        try:
+            response = self.llm.invoke(
+                [
+                    SystemMessage(content=self.system_prompt),
+                    HumanMessage(content=text)
+                ],
+            )
 
-        return response.content
-
+            return response.content
+        except Exception as e:
+            print(e)
+            print(response)
 
     
+    async def ainvoke(self, text):
+        try:
+            response = await self.llm.ainvoke(
+                 [
+                    SystemMessage(content=self.system_prompt),
+                    HumanMessage(content=text)
+                ],
+            )
+
+            return response.content
+        
+        except Exception as e:
+            print(e)
+
+
+def parse_json(text):
+    text = re.sub(r"^```json\s*|\s*```$", "", text.strip(), flags=re.DOTALL)
+    return json.loads(text)
