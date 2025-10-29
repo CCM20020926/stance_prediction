@@ -49,7 +49,7 @@ def calculate_statics(model:str):
 
 
 if __name__ == '__main__':
-    models = ['gpt-5', 'deepseek/deepseek-v3']
+    models = ['gpt-5', 'deepseek/deepseek-v3', 'deepseek/deepseek-r1']
 
     for model in models:
         calculate_statics(model)
