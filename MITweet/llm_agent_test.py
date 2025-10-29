@@ -1,6 +1,6 @@
 import asyncio
 from config import eval_ds_path, label_columns
-from llm_agent import LLMAgentZeroShot, parse_json
+from llm_agent import LLMAgentZeroShot
 from tqdm import tqdm
 import pandas as pd
 import os
@@ -38,8 +38,7 @@ async def call_agent(agent, batch_texts):
         tasks.append(task)
         
     responses = await asyncio.gather(*tasks)
-    parsed_responses = [parse_json(response) for response in responses]
-    return parsed_responses
+    return responses
 
 
 async def run_agent_test(model):
@@ -61,6 +60,7 @@ async def run_agent_test(model):
             "label": []
         })
     
+    # 2. Invoke LLM from last invoked index
     start_index = 0 if len(log_df) ==0 else log_df["index"].iloc[-1].item() + 1
     print("Start Index:", start_index)
     
@@ -69,11 +69,11 @@ async def run_agent_test(model):
         batch_texts = texts[i: i + batch_size]
         batch_labels = labels[i: i + batch_size]
         
-        parsed_responses = await call_agent(agent, batch_texts)
+        responses = await call_agent(agent, batch_texts)
         reasons = []
         predictions = []
 
-        for item in parsed_responses:
+        for item in responses:
             reason = item["reason"]
             result = item["result"]
             prediction = [result[col] for col in label_columns]

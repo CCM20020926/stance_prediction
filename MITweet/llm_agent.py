@@ -6,6 +6,10 @@ import re
 import json
 dotenv.load_dotenv()
 
+def parse_json(text):
+    text = re.sub(r"^```json\s*|\s*```$", "", text.strip(), flags=re.DOTALL)
+    return json.loads(text)
+
 class LLMAgentZeroShot:
     system_prompt_template = '''You are a helpful assistant for ideology detection. You need to output the ideological detection results revealed in the user's input text 
     according to the given detection dimensions.
@@ -55,35 +59,39 @@ class LLMAgentZeroShot:
 
 
     def invoke(self, text):
-        try:
-            response = self.llm.invoke(
-                [
-                    SystemMessage(content=self.system_prompt),
-                    HumanMessage(content=text)
-                ],
-            )
+        retry_times = 5
+        while retry_times > 0:
+            try:
+                response = self.llm.invoke(
+                    [
+                        SystemMessage(content=self.system_prompt),
+                        HumanMessage(content=text)
+                    ],
+                )
 
-            return response.content
-        except Exception as e:
-            print(e)
-            print(response)
-
-    
+                return parse_json(response.content)
+                
+            except Exception as e:
+                print(e)
+                retry_times -= 1
+                print("Rest retry times:", retry_times)
+                    
+       
     async def ainvoke(self, text):
-        try:
-            response = await self.llm.ainvoke(
+        retry_times = 5
+        while retry_times > 0:
+            try:
+                response = await self.llm.ainvoke(
                  [
                     SystemMessage(content=self.system_prompt),
                     HumanMessage(content=text)
                 ],
-            )
+                )
 
-            return response.content
+                return parse_json(response.content)
         
-        except Exception as e:
-            print(e)
+            except Exception as e:
+                print(e)
+                retry_times -= 1
+                print("Rest retry times:", retry_times)
 
-
-def parse_json(text):
-    text = re.sub(r"^```json\s*|\s*```$", "", text.strip(), flags=re.DOTALL)
-    return json.loads(text)
