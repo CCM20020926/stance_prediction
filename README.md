@@ -6,7 +6,7 @@
 
 ### （一）数据集说明
 
-**检测维度：** 12 （详见[MITweet/detection_dim.md]）
+**检测维度：** 12 （详见[MITweet/detection_dim.md](MITweet/detection_dim.md)）
 
 **标签种类数：** 4 （预处理后种类标号：  0 -  未涉及 1 - 左派 2 - 中立 3 - 右派）
 
